@@ -14,6 +14,8 @@ struct Diary: Identifiable {
     let date: Date
 }
 
+
+
 extension Diary {
     static let MOCK_DIARY1 = Diary(
         id: UUID(),

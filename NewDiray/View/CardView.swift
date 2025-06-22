@@ -10,17 +10,41 @@ import SwiftUI
 struct CardView: View {
     
     let diary: Diary
+    @State private var offset: CGSize = .zero
     
     var body: some View {
-        VStack {
-            Text(diary.title)
-                .font(.title)
-                .padding(10)
-            Text(diary.text)
-                .font(.body)
-                .padding(10)
-            Text("写真")
+        ZStack {
+            //backgound
+            RoundedRectangle(cornerRadius: 15)
+                .fill(Color.gray)
+                .frame(width: 350, height: 500)
+            VStack {
+                Text(diary.title)
+                    .font(.title)
+                    .padding(10)
+                Text(diary.text)
+                    .font(.body)
+                    .padding(10)
+                Text("写真")
+            }
         }
+        .frame(width: 350, height: 500)
+        .overlay(
+            RoundedRectangle(cornerRadius: 15)
+                .stroke(Color.black, lineWidth: 5)
+        )
+        .offset(offset)
+        .gesture(
+            DragGesture()
+                .onChanged{ gesture in
+                    offset = gesture.translation
+                }
+                .onEnded{ _ in
+                    withAnimation {
+                        offset = .zero
+                    }
+                }
+        )
     }
 }
 
