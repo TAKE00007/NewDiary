@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct ListView: View {
+    
+    let diary: Diary
+    
     var body: some View {
         NavigationStack {
             ZStack {
-                CardView()
+                CardView(diary: Diary.MOCK_DIARY1)
             }
             .navigationTitle("Diary")
             .navigationBarTitleDisplayMode(.inline)
@@ -25,5 +28,5 @@ struct ListView: View {
 }
 
 #Preview {
-    ListView()
+    ListView(diary: Diary.MOCK_DIARY1)
 }

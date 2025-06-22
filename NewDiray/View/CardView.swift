@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct CardView: View {
+    
+    let diary: Diary
+    
     var body: some View {
         VStack {
-            Text("タイトル")
+            Text(diary.title)
                 .font(.title)
                 .padding(10)
-            Text("おはよう。今日は早起きして散歩に出かけた。朝の空気はひんやりとしていてとても気持ちが良かった。")
+            Text(diary.text)
                 .font(.body)
                 .padding(10)
             Text("写真")
@@ -22,5 +25,5 @@ struct CardView: View {
 }
 
 #Preview {
-    CardView()
+    CardView(diary: Diary.MOCK_DIARY1)
 }
