@@ -15,6 +15,21 @@ struct ListView: View {
         NavigationStack {
             ZStack {
                 CardView(diary: Diary.MOCK_DIARY1)
+                
+                VStack {
+                    
+                    Spacer()
+                    
+                    Button {
+                        print("+ボタンを押しました")
+                    } label: {
+                        Image(systemName: "plus.circle.fill")
+                            .resizable()
+                            .frame(width: 60, height: 60)
+                    }
+                }
+                
+
             }
             .navigationTitle("Diary")
             .navigationBarTitleDisplayMode(.inline)
