@@ -45,9 +45,9 @@ struct CardView: View {
                     }
                     
                     
-                    if (abs(width) > 150) {
+                    if (abs(width) > 50) {
                         withAnimation {
-                            offset = CGSize(width: width > 150 ? screenWidth * 1.0: screenWidth * -1.0, height: height)
+                            offset = CGSize(width: width > 50 ? screenWidth * 1.0: screenWidth * -1.0, height: height)
                         }
                     } else {
                         offset = CGSize(width: width, height: height)
