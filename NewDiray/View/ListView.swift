@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ListView: View {
     
-    var diaries: [Diary] = getMockDiaries()
+    @State private var diaries: [Diary] = getMockDiaries()
     
     var body: some View {
         NavigationStack {
@@ -23,9 +23,7 @@ struct ListView: View {
                     
                     Spacer()
                     
-                    Button {
-                        print("+ボタンを押しました")
-                    } label: {
+                    NavigationLink(destination: RegisterView(diaries: $diaries)) {
                         Image(systemName: "plus.circle.fill")
                             .resizable()
                             .frame(width: 60, height: 60)

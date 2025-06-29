@@ -7,12 +7,14 @@
 
 import SwiftUI
 
-struct RegesterView: View {
+struct RegisterView: View {
     
-//    var diary: Diary
+    @Binding var diaries: [Diary]
     
     @State private var title = ""
     @State private var text = ""
+    
+    @Environment(\.dismiss) var dismiss
     
     
     var body: some View {
@@ -24,23 +26,27 @@ struct RegesterView: View {
                     .padding(4)
                     .background(Color(.systemGray6))
                     .cornerRadius(8)
+            
                 
-                Button("保存") {
-                    
+                Button {
+                    let newDiary = Diary(
+                        id: UUID(),
+                        title: title,
+                        text: text,
+                        date: Date()
+                    )
+                    diaries.append(newDiary)
+                    dismiss()
+                } label: {
+                    Text("保存")
                 }
             }
+            .navigationTitle("日記登録")
             .padding()
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("戻る") {
-                        
-                    }
-                }
-            }
         }
     }
 }
 
 #Preview {
-    RegesterView()
+    RegisterView(diaries: .constant([]))
 }

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     
+//    @State var diaries: [Diary] = getMockDiaries()
+    
     var body: some View {
         ListView()
     }
@@ -17,3 +19,4 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
+
