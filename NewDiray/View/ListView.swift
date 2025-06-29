@@ -18,19 +18,6 @@ struct ListView: View {
                     CardView(diary: diaries[index])
                         .offset(y: CGFloat(index) * 20)
                 }
-                
-                VStack {
-                    
-                    Spacer()
-                    
-                    NavigationLink(destination: RegisterView(diaries: $diaries)) {
-                        Image(systemName: "plus.circle.fill")
-                            .resizable()
-                            .frame(width: 60, height: 60)
-                    }
-                }
-                
-
             }
             .navigationTitle("Diary")
             .navigationBarTitleDisplayMode(.inline)
@@ -41,6 +28,16 @@ struct ListView: View {
                     Text(DateFormatter.diaryDateFormatter.string(from: now))
                 }
             }
+            
+            Spacer()
+            
+            NavigationLink(destination: RegisterView(diaries: $diaries)) {
+                Image(systemName: "plus.circle.fill")
+                    .resizable()
+                    .frame(width: 60, height: 60)
+                    .padding(.top, 20)
+            }
+            
         }
     }
 }
