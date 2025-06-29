@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RegesterView: View {
+struct RegisterView: View {
     
 //    var diary: Diary
     
@@ -26,21 +26,14 @@ struct RegesterView: View {
                     .cornerRadius(8)
                 
                 Button("保存") {
-                    
+                        print("ボタンが押されました")
                 }
             }
             .padding()
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("戻る") {
-                        
-                    }
-                }
-            }
         }
     }
 }
 
 #Preview {
-    RegesterView()
+    RegisterView()
 }
