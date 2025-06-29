@@ -9,12 +9,15 @@ import SwiftUI
 
 struct ListView: View {
     
-    let diary: Diary
+    var diaries: [Diary] = getMockDiaries()
     
     var body: some View {
         NavigationStack {
-            ZStack {
-                CardView(diary: Diary.MOCK_DIARY1)
+            ZStack(alignment: .top) {
+                ForEach(diaries.indices, id: \.self){ index in
+                    CardView(diary: diaries[index])
+                        .offset(y: CGFloat(index) * 20)
+                }
                 
                 VStack {
                     
@@ -35,6 +38,7 @@ struct ListView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
+                    //現在月に直す
                     Text("2025/06/22")
                 }
             }
@@ -43,5 +47,20 @@ struct ListView: View {
 }
 
 #Preview {
-    ListView(diary: Diary.MOCK_DIARY1)
+    ListView()
+}
+
+func getMockDiaries() -> [Diary] {
+    return [
+        Diary.MOCK_DIARY1,
+        Diary.MOCK_DIARY2,
+        Diary.MOCK_DIARY3,
+        Diary.MOCK_DIARY4,
+        Diary.MOCK_DIARY5,
+        Diary.MOCK_DIARY6,
+        Diary.MOCK_DIARY7,
+        Diary.MOCK_DIARY8,
+        Diary.MOCK_DIARY9,
+        Diary.MOCK_DIARY10
+    ]
 }

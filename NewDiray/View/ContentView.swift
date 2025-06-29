@@ -9,10 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     
-    let diary: Diary = Diary.MOCK_DIARY1
-    
     var body: some View {
-        ListView(diary: diary)
+        ListView()
     }
 }
 

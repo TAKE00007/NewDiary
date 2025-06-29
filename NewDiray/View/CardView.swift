@@ -10,18 +10,59 @@ import SwiftUI
 struct CardView: View {
     
     let diary: Diary
+    @State private var offset: CGSize = .zero
     
     var body: some View {
-        VStack {
-            Text(diary.title)
-                .font(.title)
-                .padding(10)
-            Text(diary.text)
-                .font(.body)
-                .padding(10)
-            Text("写真")
+        ZStack {
+            //backgound
+            RoundedRectangle(cornerRadius: 15)
+                .fill(Color.gray)
+                .frame(width: 350, height: 500)
+            VStack {
+                Text(diary.title)
+                    .font(.title)
+                    .padding(10)
+                Text(diary.text)
+                    .font(.body)
+                    .padding(10)
+                Text("写真")
+            }
         }
+        .frame(width: 350, height: 500)
+        .overlay(
+            RoundedRectangle(cornerRadius: 15)
+                .stroke(Color.black, lineWidth: 5)
+        )
+        .offset(offset)
+        .gesture(
+            DragGesture()
+                .onChanged{ value in
+                    let width = value.translation.width
+                    let height = value.translation.height
+                    var screenWidth: CGFloat {
+                        guard let window = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return 0.0 }
+                        return window.screen.bounds.width
+                    }
+                    
+                    
+                    if (abs(width) > 50) {
+                        withAnimation {
+                            offset = CGSize(width: width > 50 ? screenWidth * 1.0: screenWidth * -1.0, height: height)
+                        }
+                    } else {
+                        offset = CGSize(width: width, height: height)
+                    }
+                    
+                }
+//                .onEnded{ _ in
+//                    withAnimation {
+//                        offset = .zero
+//                    }
+//                }
+        )
     }
+    
+    
 }
 
 #Preview {
