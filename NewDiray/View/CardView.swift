@@ -36,16 +36,33 @@ struct CardView: View {
         .offset(offset)
         .gesture(
             DragGesture()
-                .onChanged{ gesture in
-                    offset = gesture.translation
-                }
-                .onEnded{ _ in
-                    withAnimation {
-                        offset = .zero
+                .onChanged{ value in
+                    let width = value.translation.width
+                    let height = value.translation.height
+                    var screenWidth: CGFloat {
+                        guard let window = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return 0.0 }
+                        return window.screen.bounds.width
                     }
+                    
+                    
+                    if (abs(width) > 150) {
+                        withAnimation {
+                            offset = CGSize(width: width > 150 ? screenWidth * 1.0: screenWidth * -1.0, height: height)
+                        }
+                    } else {
+                        offset = CGSize(width: width, height: height)
+                    }
+                    
                 }
+//                .onEnded{ _ in
+//                    withAnimation {
+//                        offset = .zero
+//                    }
+//                }
         )
     }
+    
+    
 }
 
 #Preview {
