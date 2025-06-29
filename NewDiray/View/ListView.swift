@@ -38,7 +38,7 @@ struct ListView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     //現在月に直す
                     let now = Date()
-                    Text(DateFormatter.diaryDateFormatterう.string(from: now))
+                    Text(DateFormatter.diaryDateFormatter.string(from: now))
                 }
             }
         }
