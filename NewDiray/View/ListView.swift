@@ -10,13 +10,24 @@ import SwiftUI
 struct ListView: View {
     
     @State private var diaries: [Diary] = getMockDiaries()
+    @State private var returnIndex: Int? = nil
+    @State private var cardOffsets: [CGSize]
+    
+    //_を前につけることでStateプロパティラッパーのインスタンスそのものを初期化することができる
+    //Array(repeating: .zero, count: N)で.zero(CGSize(width: 0, height: 0)をN回繰り返して新しい配列を作成する
+    //[TODO] 新規追加した際にも対応できるようにする
+    init() {
+        _cardOffsets = State(initialValue: Array(repeating: .zero, count: getMockDiaries().count))
+    }
     
     var body: some View {
         NavigationStack {
             ZStack(alignment: .top) {
                 ForEach(diaries.indices, id: \.self){ index in
-                    CardView(diary: diaries[index])
-                        .offset(y: CGFloat(index) * 20)
+                    CardRowView(diary: diaries[index],
+                                index: index,
+                                returnIndex: $returnIndex,
+                                offset: $cardOffsets[index])
                 }
             }
             .navigationTitle("Diary")
@@ -26,6 +37,15 @@ struct ListView: View {
                     //現在月に直す
                     let now = Date()
                     Text(DateFormatter.diaryDateFormatter.string(from: now))
+                }
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(action: {
+                        returnCard()
+                    }, label: {
+                        Image(systemName: "arrow.trianglehead.clockwise")
+                            .padding(.leading, 20)
+                            .foregroundStyle(Color.blue)
+                    })
                 }
             }
             
@@ -37,7 +57,15 @@ struct ListView: View {
                     .frame(width: 60, height: 60)
                     .padding(.top, 20)
             }
-            
+        }
+    }
+    
+    private func returnCard() {
+        if let indexToReturn = returnIndex {
+            withAnimation {
+                cardOffsets[indexToReturn] = .zero
+            }
+            returnIndex = nil
         }
     }
 }
