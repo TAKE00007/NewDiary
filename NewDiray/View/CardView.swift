@@ -10,7 +10,10 @@ import SwiftUI
 struct CardView: View {
     
     let diary: Diary
-    @State private var offset: CGSize = .zero
+//    @State private var offset: CGSize = .zero
+    let index: Int
+    @Binding var returnIndex: Int?
+    @Binding var offset: CGSize
     
     var body: some View {
         ZStack {
@@ -20,7 +23,7 @@ struct CardView: View {
                 .frame(width: 350, height: 500)
             VStack {
                 Text(diary.title)
-                    .foregroundStyle(Color.white)
+                    .foregroundStyle(Color.white) 
                     .font(.title)
                     .padding(10)
                 Text(diary.text)
@@ -49,6 +52,8 @@ struct CardView: View {
                     if (abs(width) > 50) {
                         withAnimation {
                             offset = CGSize(width: width > 50 ? screenWidth * 1.0: screenWidth * -1.0, height: height)
+                            returnIndex = index
+                            print(returnIndex)
                         }
                     } else {
                         offset = CGSize(width: width, height: height)
@@ -78,5 +83,5 @@ struct CardView: View {
 }
 
 #Preview {
-    CardView(diary: Diary.MOCK_DIARY1)
+    CardView(diary: Diary.MOCK_DIARY1,index: 1 ,returnIndex: .constant(1), offset: .constant(.zero))
 }
