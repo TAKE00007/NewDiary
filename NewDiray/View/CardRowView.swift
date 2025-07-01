@@ -10,7 +10,7 @@ import SwiftUI
 struct CardRowView: View {
     let diary: Diary
     let index: Int
-    @Binding var returnIndex: Int?
+    @Binding var returnIndex: [Int]
     @Binding var offset: CGSize
     
     
@@ -25,5 +25,5 @@ struct CardRowView: View {
 }
 
 #Preview {
-    CardRowView(diary: Diary.MOCK_DIARY1, index: 0, returnIndex: .constant(nil), offset: .constant(.zero))
+    CardRowView(diary: Diary.MOCK_DIARY1, index: 0, returnIndex: .constant([]), offset: .constant(.zero))
 }

@@ -12,7 +12,7 @@ struct CardView: View {
     let diary: Diary
 //    @State private var offset: CGSize = .zero
     let index: Int
-    @Binding var returnIndex: Int?
+    @Binding var returnIndex: [Int]
     @Binding var offset: CGSize
     
     var body: some View {
@@ -52,7 +52,9 @@ struct CardView: View {
                     if (abs(width) > 50) {
                         withAnimation {
                             offset = CGSize(width: width > 50 ? screenWidth * 1.0: screenWidth * -1.0, height: height)
-                            returnIndex = index
+                            if !returnIndex.contains(index) {
+                                returnIndex.append(index)
+                            }
                             print(returnIndex)
                         }
                     } else {
@@ -83,5 +85,5 @@ struct CardView: View {
 }
 
 #Preview {
-    CardView(diary: Diary.MOCK_DIARY1,index: 1 ,returnIndex: .constant(1), offset: .constant(.zero))
+    CardView(diary: Diary.MOCK_DIARY1,index: 1 ,returnIndex: .constant([]), offset: .constant(.zero))
 }
