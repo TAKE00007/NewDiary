@@ -10,7 +10,7 @@ import SwiftUI
 struct ListView: View {
     
     @State private var diaries: [Diary] = getMockDiaries()
-    @State private var returnIndex: Int? = nil
+    @State private var returnIndex: [Int] = []
     @State private var cardOffsets: [CGSize]
     
     //_を前につけることでStateプロパティラッパーのインスタンスそのものを初期化することができる
@@ -61,11 +61,11 @@ struct ListView: View {
     }
     
     private func returnCard() {
-        if let indexToReturn = returnIndex {
+        if let indexToReturn = returnIndex.last {
             withAnimation {
                 cardOffsets[indexToReturn] = .zero
             }
-            returnIndex = nil
+            returnIndex.removeLast()
         }
     }
 }
