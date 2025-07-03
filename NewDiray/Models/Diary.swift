@@ -6,12 +6,45 @@
 //
 
 import Foundation
+import SwiftData
 
-struct Diary: Identifiable {
-    let id: UUID
-    let title: String
-    let text: String
-    let date: Date
+@Model
+final class Diary: Identifiable, Codable {
+    @Attribute(.unique) var id: UUID
+    var title: String
+    var text: String
+    var date: Date
+    
+    init(id: UUID = UUID(), title: String = "", text: String = "", date: Date = Date()) {
+        self.id = id
+        self.title = title
+        self.text = text
+        self.date = date
+    }
+    
+    
+    // MARK: - Codable Conformance
+    // JSOnデコード/エンコードのためにCodableに準拠させる
+    //これをすることでパスワードなど重要な情報はCodableでなくできる
+    enum CodingKeys: String, CodingKey {
+        case id, title, text, date
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(UUID.self, forKey: .id)
+        title = try container.decode(String.self, forKey: .title)
+        text = try container.decode(String.self, forKey: .text)
+        date = try container.decode(Date.self, forKey: .date)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(title, forKey: .title)
+        try container.encode(text, forKey: .text)
+        try container.encode(date, forKey: .date)
+    }
 }
 
 
