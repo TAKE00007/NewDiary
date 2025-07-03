@@ -9,15 +9,26 @@ import SwiftUI
 
 struct ListView: View {
     
-    @State private var diaries: [Diary] = getMockDiaries()
+//    @State private var diaries: [Diary] = getMockDiaries()
     @State private var returnIndex: [Int] = []
-    @State private var cardOffsets: [CGSize]
+    @State private var cardOffsets: [CGSize] = []
     
     //_を前につけることでStateプロパティラッパーのインスタンスそのものを初期化することができる
     //Array(repeating: .zero, count: N)で.zero(CGSize(width: 0, height: 0)をN回繰り返して新しい配列を作成する
     //[TODO] 新規追加した際にも対応できるようにする
-    init() {
-        _cardOffsets = State(initialValue: Array(repeating: .zero, count: getMockDiaries().count))
+//    init() {
+//        _cardOffsets = State(initialValue: Array(repeating: .zero, count: getMockDiaries().count))
+//    }
+    
+    @State private var diaries: [Diary] = [] {
+        didSet {
+            if cardOffsets.count < diaries.count {
+                let diff = diaries.count - cardOffsets.count
+                cardOffsets.append(contentsOf: Array(repeating: .zero, count: diff))
+            } else if cardOffsets.count > diaries.count {
+                cardOffsets.removeLast(cardOffsets.count - diaries.count)
+            }
+        }
     }
     
     var body: some View {
