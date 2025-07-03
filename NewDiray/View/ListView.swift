@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ListView: View {
+    
+    @Environment(\.modelContext) private var context
+    @Query private var diaries: [Diary]
     
 //    @State private var diaries: [Diary] = getMockDiaries()
     @State private var returnIndex: [Int] = []
@@ -20,16 +24,16 @@ struct ListView: View {
 //        _cardOffsets = State(initialValue: Array(repeating: .zero, count: getMockDiaries().count))
 //    }
     
-    @State private var diaries: [Diary] = [] {
-        didSet {
-            if cardOffsets.count < diaries.count {
-                let diff = diaries.count - cardOffsets.count
-                cardOffsets.append(contentsOf: Array(repeating: .zero, count: diff))
-            } else if cardOffsets.count > diaries.count {
-                cardOffsets.removeLast(cardOffsets.count - diaries.count)
-            }
-        }
-    }
+//    @State private var diaries: [Diary] = [] {
+//        didSet {
+//            if cardOffsets.count < diaries.count {
+//                let diff = diaries.count - cardOffsets.count
+//                cardOffsets.append(contentsOf: Array(repeating: .zero, count: diff))
+//            } else if cardOffsets.count > diaries.count {
+//                cardOffsets.removeLast(cardOffsets.count - diaries.count)
+//            }
+//        }
+//    }
     
     var body: some View {
         NavigationStack {
@@ -62,12 +66,13 @@ struct ListView: View {
             
             Spacer()
             
-            NavigationLink(destination: RegisterView(diaries: $diaries)) {
-                Image(systemName: "plus.circle.fill")
-                    .resizable()
-                    .frame(width: 60, height: 60)
-                    .padding(.top, 20)
-            }
+            // TODO あとでSwiftDataに対応させる
+//            NavigationLink(destination: RegisterView(diaries: $diaries)) {
+//                Image(systemName: "plus.circle.fill")
+//                    .resizable()
+//                    .frame(width: 60, height: 60)
+//                    .padding(.top, 20)
+//            }
         }
     }
     
@@ -83,6 +88,7 @@ struct ListView: View {
 
 #Preview {
     ListView()
+        .modelContainer(for: Diary.self)
 }
 
 func getMockDiaries() -> [Diary] {
