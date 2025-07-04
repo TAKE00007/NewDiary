@@ -14,5 +14,6 @@ struct NewDirayApp: App {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: Diary.self)
     }
 }
