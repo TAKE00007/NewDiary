@@ -11,7 +11,7 @@ import SwiftData
 struct ListView: View {
     
     @Environment(\.modelContext) private var context
-    @Query private var diaries: [Diary]
+    @Query(sort: \Diary.date, order: .reverse) private var diaries: [Diary]
     
 //    @State private var diaries: [Diary] = getMockDiaries()
     @State private var returnIndex: [Int] = []
@@ -88,7 +88,7 @@ struct ListView: View {
 
 #Preview {
     ListView()
-        .modelContainer(for: Diary.self)
+        .modelContainer(for: Diary.self, inMemory: true)
 }
 
 func getMockDiaries() -> [Diary] {
