@@ -63,6 +63,23 @@ struct ListView: View {
                     })
                 }
             }
+            .onAppear{
+                // .onAppearはviewが画面に表示される直前、または表示された直後に一度だけ実行される
+                // .onAppearでcardOffsetsを初期設定
+                // diariesがロードされた後にcardOffsetsを設定
+                //初回ロード時やデータ変更時にcardOffsetsが正しく初期化される
+                if cardOffsets.count != diaries.count {
+                    cardOffsets = Array(repeating: .zero, count: diaries.count)
+                }
+            }
+            .onChange(of: diaries.count) { oldValue, newValue in //変化前と変化後の値を取得できる
+                if newValue > oldValue {
+                    let diff = newValue - oldValue
+                    cardOffsets.append(contentsOf: Array(repeating: .zero, count: diff))
+                } else if newValue < oldValue {
+                    cardOffsets = Array(repeating: .zero, count: newValue)
+                }
+            }
             
             Spacer()
             
