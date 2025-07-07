@@ -10,7 +10,6 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-//    @State var diaries: [Diary] = getMockDiaries()
     
     var body: some View {
         ListView()
