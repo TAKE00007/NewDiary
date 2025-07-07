@@ -22,6 +22,10 @@ struct RegisterView: View {
         NavigationStack {
             VStack {
                 TextField("タイトルを入力", text: $title)
+                    .frame(maxWidth: .infinity)
+                    .padding(4)
+                    .background(Color(.systemGray6))
+                    .cornerRadius(8)
                 TextEditor(text: $text)
                     .frame(minHeight: 200)
                     .padding(4)
@@ -46,6 +50,14 @@ struct RegisterView: View {
                     dismiss()
                 } label: {
                     Text("保存")
+                        .foregroundStyle(Color.white)
+                        .font(.body)
+                        .fontWeight(.semibold)
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 16)
+                                .fill(Color.blue)
+                        )
                 }
             }
             .navigationTitle("日記登録")
