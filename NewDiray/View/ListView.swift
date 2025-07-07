@@ -11,7 +11,7 @@ import SwiftData
 struct ListView: View {
     
     @Environment(\.modelContext) private var context
-    @Query(sort: \Diary.date, order: .reverse) private var diaries: [Diary]
+    @Query(sort: \Diary.date) private var diaries: [Diary]
     
 //    @State private var diaries: [Diary] = getMockDiaries()
     @State private var returnIndex: [Int] = []
@@ -94,12 +94,12 @@ struct ListView: View {
             Spacer()
             
             // TODO あとでSwiftDataに対応させる
-//            NavigationLink(destination: RegisterView(diaries: $diaries)) {
-//                Image(systemName: "plus.circle.fill")
-//                    .resizable()
-//                    .frame(width: 60, height: 60)
-//                    .padding(.top, 20)
-//            }
+            NavigationLink(destination: RegisterView()) {
+                Image(systemName: "plus.circle.fill")
+                    .resizable()
+                    .frame(width: 60, height: 60)
+                    .padding(.top, 20)
+            }
         }
     }
     

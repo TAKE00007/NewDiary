@@ -14,9 +14,9 @@ struct ContentView: View {
     
     var body: some View {
         ListView()
-            .onAppear{
-                loadInitialData(modelContext: modelContext)
-            }
+//            .onAppear{
+//                loadInitialData(modelContext: modelContext)
+//            }
     }
 }
 
