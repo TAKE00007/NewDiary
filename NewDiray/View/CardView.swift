@@ -10,7 +10,6 @@ import SwiftUI
 struct CardView: View {
     
     let diary: Diary
-//    @State private var offset: CGSize = .zero
     let index: Int
     @Binding var returnIndex: [Int]
     @Binding var offset: CGSize
@@ -62,11 +61,6 @@ struct CardView: View {
                     }
                     
                 }
-            //                .onEnded{ _ in
-            //                    withAnimation {
-            //                        offset = .zero
-            //                    }
-            //                }
         )
     }
         

@@ -13,13 +13,10 @@ struct RegisterView: View {
     @Environment(\.modelContext) private var context
     @Query private var diaries: [Diary]
     
-//    @Binding var diaries: [Diary]
-    
     @State private var title = ""
     @State private var text = ""
     
     @Environment(\.dismiss) var dismiss
-    
     
     var body: some View {
         NavigationStack {
