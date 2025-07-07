@@ -31,6 +31,9 @@ func loadInitialData(modelContext: ModelContext) {
                 //JSONをデコードする前の生データ
                 let data = try Data(contentsOf: url)
                 let decoder = JSONDecoder()
+                
+                decoder.dateDecodingStrategy = .iso8601
+//                decoder.dateDecodingStrategy = .formatted(DateFormatter.diaryDateFormatter)
                 //TODO: なぜ[Diary]ではダメで[Diary].selfなのか？
                 //[Diary]であるとDiaryの配列というデータ型ですと伝える
                 //[Diary:.selfであるとDiaryの配列という型そのものの情報（つまり型ではなく値)

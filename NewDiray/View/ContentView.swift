@@ -6,17 +6,22 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
-    
+    @Environment(\.modelContext) private var modelContext
 //    @State var diaries: [Diary] = getMockDiaries()
     
     var body: some View {
         ListView()
+            .onAppear{
+                loadInitialData(modelContext: modelContext)
+            }
     }
 }
 
 #Preview {
     ContentView()
+        .modelContainer(for: Diary.self)
 }
 

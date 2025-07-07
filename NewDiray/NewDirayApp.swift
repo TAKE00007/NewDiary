@@ -6,13 +6,20 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct NewDirayApp: App {
+    // TODO: ここで何をしているのか
+    @State private var container = try! ModelContainer(for: Diary.self)
     
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .modelContainer(container)
+                .onAppear {
+                    loadInitialData(modelContext: container.mainContext)
+                }
         }
         .modelContainer(for: Diary.self)
     }
