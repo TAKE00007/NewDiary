@@ -6,10 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct RegisterView: View {
     
-    @Binding var diaries: [Diary]
+    @Environment(\.modelContext) private var context
+    @Query private var diaries: [Diary]
+    
+//    @Binding var diaries: [Diary]
     
     @State private var title = ""
     @State private var text = ""
@@ -35,7 +39,13 @@ struct RegisterView: View {
                         text: text,
                         date: Date()
                     )
-                    diaries.append(newDiary)
+                    context.insert(newDiary)
+                    do {
+                        try context.save()
+                    } catch {
+                        print("追加に失敗しました\(error)")
+                    }
+//                    diaries.append(newDiary)
                     dismiss()
                 } label: {
                     Text("保存")
@@ -48,5 +58,6 @@ struct RegisterView: View {
 }
 
 #Preview {
-    RegisterView(diaries: .constant([]))
+    RegisterView()
+        .modelContainer(for: Diary.self, inMemory: true)
 }

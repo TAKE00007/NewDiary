@@ -17,9 +17,9 @@ struct NewDirayApp: App {
         WindowGroup {
             ContentView()
                 .modelContainer(container)
-                .onAppear {
-                    loadInitialData(modelContext: container.mainContext)
-                }
+//                .onAppear {
+//                    loadInitialData(modelContext: container.mainContext)
+//                }
         }
         .modelContainer(for: Diary.self)
     }
