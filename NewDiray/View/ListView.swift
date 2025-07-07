@@ -36,13 +36,19 @@ struct ListView: View {
 //    }
     
     var body: some View {
+        
         NavigationStack {
             ZStack(alignment: .top) {
-                ForEach(diaries.indices, id: \.self){ index in
-                    CardRowView(diary: diaries[index],
-                                index: index,
-                                returnIndex: $returnIndex,
-                                offset: $cardOffsets[index])
+                if cardOffsets.count == diaries.count {
+                    ForEach(diaries.indices, id: \.self){ index in
+                        CardRowView(diary: diaries[index],
+                                    index: index,
+                                    returnIndex: $returnIndex,
+                                    offset: $cardOffsets[index])
+                    }
+                } else {
+                    ProgressView("Loading...")
+                        .padding(.top, 100)
                 }
             }
             .navigationTitle("Diary")
@@ -68,8 +74,12 @@ struct ListView: View {
                 // .onAppearでcardOffsetsを初期設定
                 // diariesがロードされた後にcardOffsetsを設定
                 //初回ロード時やデータ変更時にcardOffsetsが正しく初期化される
+                print("🧮 diaries.count: \(diaries.count)")
+                print("🧮 cardOffsets.count: \(cardOffsets.count)")
+                
                 if cardOffsets.count != diaries.count {
                     cardOffsets = Array(repeating: .zero, count: diaries.count)
+                    print("✅ cardOffsets 初期化完了: \(cardOffsets.count)")
                 }
             }
             .onChange(of: diaries.count) { oldValue, newValue in //変化前と変化後の値を取得できる
