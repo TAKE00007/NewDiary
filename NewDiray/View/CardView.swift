@@ -22,14 +22,19 @@ struct CardView: View {
                 .frame(width: 350, height: 500)
             VStack {
                 Text(diary.title)
-                    .foregroundStyle(Color.white) 
                     .font(.title)
                     .padding(10)
+        
                 Text(diary.text)
-                    .foregroundStyle(Color.white)
                     .font(.body)
-                    .padding(10)
+                    .padding(30)
+                
+                Text(DateFormatter.diaryDateFormatter.string(from: diary.date))
+                    .fontWeight(.semibold)
+                    .padding(.top, 40)
             }
+            .foregroundStyle(Color.white)
+            
         }
         .frame(width: 350, height: 500)
         .overlay(
